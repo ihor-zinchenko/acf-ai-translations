@@ -1,0 +1,2 @@
+<?php
+// License check stub

@@ -1,0 +1,2 @@
+<?php
+// GPT integration stub
