@@ -1,0 +1,37 @@
+# macOS
+.DS_Store
+
+# IDEs
+.idea/
+.vscode/
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-error.log
+
+# Composer
+/vendor/
+composer.lock
+
+# WordPress
+wp-content/uploads/
+wp-content/cache/
+wp-content/advanced-cache.php
+wp-content/backups/
+wp-content/plugins/hello.php
+
+# Logs
+*.log
+
+# Build
+/dist/
+build/
+*.min.js
+*.min.css
+
+# Misc
+.env
+.env.*
+*.bak
+*.tmp
