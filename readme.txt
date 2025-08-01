@@ -1,3 +1,0 @@
-=== ACF AI Translations ===
-Contributors: yourname
-...
