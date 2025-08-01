@@ -1,0 +1,20 @@
+.acfai-languages-add {
+  display: flex;
+  margin: 0 -15px -30px;
+}
+.acfai-languages-add__item {
+  padding: 0 15px 30px;
+}
+
+.acfai-languages-add__label {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+.acfai-languages-add__button {
+  display: flex;
+  align-items: center;
+}
+
+.acfai-languages-add__select {
+  width: 300px;
+}
