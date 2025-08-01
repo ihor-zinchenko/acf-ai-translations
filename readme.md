@@ -37,7 +37,7 @@ GPLv2 or later
 
 **Ihor Zinchenko**  
 🇺🇦 Proudly built in Ukraine  
-GitHub: [link](https://github.com/ihor-zinchenko/acf-ai-translations)  
+GitHub: [link](https://github.com/ihor-zinchenko/acf-ai-translations)<br>
 Donate: [PayPal](https://www.paypal.com/paypalme/IZinchenko)
 
 Support development with USDT:
