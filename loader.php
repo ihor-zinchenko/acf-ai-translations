@@ -71,6 +71,11 @@
 			'acfai-style',
 			plugins_url('assets/styles.css?t=2', __FILE__)
 		);
+		
+		wp_enqueue_style(
+			'acfai-language-switcher-style',
+			plugins_url('admin/assets/css/language-switcher.css', __FILE__)
+		);
 
 //    $langs = get_field('languages', 'option') ?: [];
 //    $default = get_field('default_lang', 'option') ?: 'uk';
@@ -79,6 +84,8 @@
 //    wp_add_inline_script('acfai-admin-ui', 'window.acfaiDefaultLang = ' . json_encode($default) . ';');
 	});
 	
+	require_once __DIR__ . '/functions.php';
+	
 	require_once __DIR__ . '/includes/helpers.php';
 	require_once __DIR__ . '/includes/overrides.php';
 	require_once __DIR__ . '/includes/translator.php';
@@ -86,3 +93,5 @@
 	require_once __DIR__ . '/includes/languages-router.php';
 	
 	require_once __DIR__ . '/admin/loader.php';
+	
+	require_once __DIR__ . '/includes/translations-hooks.php';

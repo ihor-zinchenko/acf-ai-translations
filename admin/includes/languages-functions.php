@@ -15,7 +15,7 @@
 		$table = $wpdb->prefix . 'acfai_languages';
 		
 		if (!$wpdb->get_var("SELECT COUNT(*) FROM $table")) {
-			$flag_url = acfai_get_flag_url('gb');
+			$flag_url = acfai_get_flag_url('en');
 			$wpdb->insert($table, [
 				'code' => 'en',
 				'name' => 'English',
@@ -100,4 +100,29 @@
 		
 		$success = 'Default language updated.';
 		return compact('success', 'error');
+	}
+	
+	function acfai_toggle_active_language() {
+		global $wpdb;
+		$table = $wpdb->prefix . 'acfai_languages';
+		
+		if (!isset($_POST['language_code'])) {
+			return ['success' => '', 'error' => 'Language code missing.'];
+		}
+		
+		$code = sanitize_text_field($_POST['language_code']);
+		$current = $wpdb->get_var($wpdb->prepare("SELECT active FROM $table WHERE code = %s", $code));
+		
+		if ($current === null) {
+			return ['success' => '', 'error' => 'Language not found.'];
+		}
+		
+		$new_active = $current ? 0 : 1;
+		$updated = $wpdb->update($table, ['active' => $new_active], ['code' => $code]);
+		
+		if ($updated !== false) {
+			return ['success' => 'Language status updated.', 'error' => ''];
+		} else {
+			return ['success' => '', 'error' => 'Failed to update language status.'];
+		}
 	}

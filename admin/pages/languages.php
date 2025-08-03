@@ -21,6 +21,10 @@
 			$result = acfai_set_default_language();
 		}
 		
+		if (isset($_POST['acfai_toggle_active_language'])) {
+			$result = acfai_toggle_active_language();
+		}
+		
 		$success = $result['success'] ?? '';
 		$error = $result['error'] ?? '';
 	}
@@ -108,12 +112,17 @@
 						<th style="width: 200px;">Name</th>
 						<th style="width: 50px;">Code</th>
 						<th>Default</th>
+						<th>Active</th>
 					</tr>
 					</thead>
 					<tbody class="mdc-data-table__content">
 					<?php foreach ($langs as $lang): ?>
 						<tr class="mdc-data-table__row<?= $lang->is_default ? ' mdc-data-table__row--selected' : '' ?>">
-							<td><img src="<?= esc_url($lang->flag_url) ?>" width="40" height="26"></td>
+							<td>
+								<?php if (!empty($lang->flag_url)): ?>
+									<img src="<?= esc_url($lang->flag_url) ?>" width="40" height="26" alt="<?= esc_attr($lang->name) ?>">
+								<?php endif; ?>
+							</td>
 							<td><?= esc_html($lang->name) ?></td>
 							<td><?= esc_html($lang->code) ?></td>
 							<td>
@@ -125,6 +134,13 @@
 								<?php else: ?>
 									✅
 								<?php endif; ?>
+							</td>
+							<td>
+								<form method="post" style="display:inline;">
+									<input type="hidden" name="language_code" value="<?= esc_attr($lang->code) ?>">
+									<input type="hidden" name="acfai_toggle_active_language" value="1">
+									<input type="checkbox" name="toggle_active" onchange="this.form.submit()" <?= $lang->active ? 'checked' : '' ?>>
+								</form>
 							</td>
 						</tr>
 					<?php endforeach; ?>
