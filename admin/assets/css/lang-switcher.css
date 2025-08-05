@@ -1,0 +1,30 @@
+.acfai-lang-switcher {
+  display: flex;
+  gap: 6px;
+  padding: 6px;
+  background: #f9f9f9;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+.acfai-lang-switcher button {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  background: #fff;
+  cursor: pointer;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+}
+.acfai-lang-switcher button.active {
+  background: #0073aa;
+  color: #fff;
+  border-color: #0073aa;
+}
+.acfai-lang-switcher button img {
+  width: 20px;
+  height: auto;
+  border-radius: 2px;
+  border: 1px solid #ccc;
+}

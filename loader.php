@@ -76,6 +76,19 @@
 			'acfai-language-switcher-style',
 			plugins_url('admin/assets/css/language-switcher.css', __FILE__)
 		);
+		
+		wp_enqueue_style(
+			'acfai-lang-switcher-css',
+			plugins_url('admin/assets/css/lang-switcher.css', __FILE__)
+		);
+		
+		wp_enqueue_script(
+			'acfai-lang-switcher-js',
+			plugins_url('admin/assets/js/lang-switcher.js', __FILE__),
+			['jquery'],
+			null,
+			true
+		);
 
 //    $langs = get_field('languages', 'option') ?: [];
 //    $default = get_field('default_lang', 'option') ?: 'uk';

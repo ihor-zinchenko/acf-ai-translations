@@ -1,14 +1,14 @@
 <?php
 	if (!defined('ABSPATH')) exit;
 	
-	add_action('enqueue_block_editor_assets', function() {
-		wp_enqueue_script(
-			'acfai-gutenberg-language-switcher',
-			plugins_url('admin/assets/js/gutenberg-language-switcher.js', ACFAI_PLUGIN_FILE),
-			['wp-plugins', 'wp-edit-post', 'wp-element', 'wp-data'],
-			filemtime(plugin_dir_path(ACFAI_PLUGIN_FILE) . '/admin/assets/js/gutenberg-language-switcher.js'),
-			true
-		);
+	add_action('enqueue_block_editor_assets', function () {
+//		wp_enqueue_script(
+//			'acfai-gutenberg-language-switcher',
+//			plugins_url('admin/assets/js/gutenberg-language-switcher.js', ACFAI_PLUGIN_FILE),
+//			['wp-plugins', 'wp-edit-post', 'wp-element', 'wp-data'],
+//			filemtime(plugin_dir_path(ACFAI_PLUGIN_FILE) . '/admin/assets/js/gutenberg-language-switcher.js'),
+//			true
+//		);
 		
 		wp_localize_script('acfai-gutenberg-language-switcher', 'acfaiData', [
 			'pluginUrl' => plugins_url('', __DIR__),
@@ -21,12 +21,56 @@
 		]);
 	});
 	
-	add_action('edit_form_after_title', function($post) {
-		if ($post->post_type !== 'post') return;
+	add_filter('acf/field_wrapper_attributes', function ($wrapper, $field) {
+		$excluded_types = [
+			'true_false', 'checkbox', 'file', 'image', 'gallery',
+			'radio', 'button_group', 'taxonomy', 'user', 'relationship',
+			'oembed', 'google_map', 'color_picker'
+		];
 		
-		echo '<pre>';
-		var_dump(acfai_get_active_languages());
-		echo '</pre>';
+		if (in_array($field['type'], $excluded_types, true)) {
+			return $wrapper;
+		}
+		
+		if (isset($wrapper['class'])) {
+			$wrapper['class'] .= ' acfai-translatable';
+		} else {
+			$wrapper['class'] = 'acfai-translatable';
+		}
+		
+		return $wrapper;
+	}, 10, 2);
+	
+	add_action('acf/render_field', function ($field) {
+		$excluded_types = [
+			'true_false', 'checkbox', 'file', 'image', 'gallery',
+			'radio', 'button_group', 'taxonomy', 'user', 'relationship',
+			'oembed', 'google_map', 'color_picker'
+		];
+		
+		if (in_array($field['type'], $excluded_types, true)) {
+			return;
+		}
+		
+		echo '<div class="acfai-extra-element">Додатковий контент</div>';
+	});
+	
+	add_action('edit_form_after_title', function ($post) {
+		if (!in_array($post->post_type, ['post', 'page'])) return;
+		
+		include plugin_dir_path(__FILE__) . '../admin/templates/language-switcher-default-title.php';
+	});
+//
+//	add_action('category_edit_form_fields', function($term) {
+//		include plugin_dir_path(__FILE__) . '/admin/templates/language-switcher-taxonomy.php';
+//	});
+//
+//	add_action('category_edit_form_fields', function($term) {
+//		include plugin_dir_path(__FILE__) . '/admin/templates/language-switcher-taxonomy.php';
+//	});
+	
+	add_action('edit_form_after_editor', function ($post) {
+		include plugin_dir_path(__DIR__) . 'admin/templates/language-switcher-default-description.php';
 	});
 	
 	add_action('save_post', 'acfai_save_post_translations', 20, 3);
